@@ -59,6 +59,18 @@ export const ActiveCustomers = styled('div')({
   color: '#696969'
 });
 
-export const Balance = styled('div')<TBalance>(({ remainingbalance }) => ({
-  color: Number(remainingbalance) > 0 ? '#32CD32' : '#FF0000',
-}));
+export const Balance = styled('div')<TBalance>(({ remainingbalance }) => {
+  let color = '#32CD32'
+  
+  if (Number(remainingbalance) < 0) {
+    color = '#FF0000';
+  }
+
+  if (Number(remainingbalance) === 0) {
+    color = '#A9A9A9';
+  }
+
+  return {
+    color: color,
+  }
+});

@@ -46,10 +46,10 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 function getComparator<Key extends keyof any>(
   order: TOrder,
-  orderBy: Key,
+  orderBy: any,
 ): (
-  a: { [key in Key]: number | string | any },
-  b: { [key in Key]: number | string | any },
+  a: { [key in Key]: any },
+  b: { [key in Key]: any },
 ) => number {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -68,6 +68,12 @@ const CustomerTable = () => {
 
   const activeCustomers = data.filter(customer => customer.status === 'active').length;
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+
+  const filteredData = data.filter(({ name, description }) => {
+    const keyword = searchKeyValue.toLowerCase();
+
+    return name.toLowerCase().includes(keyword) || description.toLowerCase().includes(keyword);
+  });
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
@@ -139,8 +145,7 @@ const CustomerTable = () => {
               rowCount={ data.length } />
 
             <TableBody>
-              {data.filter(({ name }) => name.includes(searchKeyValue))
-                .slice().sort(getComparator(order, orderBy))
+              { filteredData.slice().sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => (
                   <CustomerTableRow
