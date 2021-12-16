@@ -66,11 +66,12 @@ const CustomerTableHeader = (props: ITableHeader) => {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
+            data-testid="select-all"
           />
         </StyledTableCell>
-        {Header.map(({ id, numeric, label }) => (
+        {Header.map(({ id, numeric, label }, index) => (
           <StyledTableCell key={id} align={numeric ? 'right' : 'left'} padding="normal" sortDirection={orderBy === id ? order : false} >
-            <TableSortLabel active={orderBy === id} direction={orderBy === id ? order : 'asc'} onClick={createSortHandler(id)} >
+            <TableSortLabel active={orderBy === id} direction={orderBy === id ? order : 'asc'} onClick={createSortHandler(id)} data-testid={`${label}-${index}`} >
               {label}
               {orderBy === id ? (
                 <Box component="span" sx={visuallyHidden} >

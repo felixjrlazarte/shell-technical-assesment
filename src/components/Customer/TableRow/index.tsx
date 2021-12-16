@@ -33,7 +33,7 @@ const CustomerTableRow = (props: ICustomerRow) => {
       selected={isItemSelected}
     >
       <StyledTableCell padding="checkbox">
-        <Checkbox color="primary" checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
+        <Checkbox color="primary" checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} data-testid={`checkbox-${index}`} />
       </StyledTableCell>
       <StyledTableCell component="th" id={labelId} scope="row" width="16%">
         <CustomerName>{customer.name}</CustomerName>
@@ -55,7 +55,9 @@ const CustomerTableRow = (props: ICustomerRow) => {
       <StyledTableCell align="center">
         <StatusContainer status={customer.status}>{customer.status}</StatusContainer>
       </StyledTableCell>
-      <StyledTableCell align="right" onClick={ onDelete }>{customer.action}</StyledTableCell>
+      <StyledTableCell align="right" onClick={ onDelete } data-testid={`delete-button-${index}`}>
+        {customer.action}
+      </StyledTableCell>
     </StyledTableRow>
   );
 }

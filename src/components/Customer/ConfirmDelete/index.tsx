@@ -28,7 +28,7 @@ const ConfirmDelete = (props: IConfirmDelete) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={ handleClose }>Cancel</Button>
-        <Button onClick={ handleDelete } autoFocus>Delete</Button>
+        <Button onClick={ handleDelete } autoFocus data-testid="confirm-delete">Delete</Button>
       </DialogActions>
     </Dialog>
   )
